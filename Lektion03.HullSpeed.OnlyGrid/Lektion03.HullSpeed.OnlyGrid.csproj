@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{B4BD2A72-6CEF-4132-B838-598A8D4B71A4}</ProjectGuid>
+    <ProjectGuid>{63397A07-56AB-4820-A787-D2297705B65E}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>Lektion03.HullSpeed</RootNamespace>
-    <AssemblyName>Lektion03.HullSpeed</AssemblyName>
+    <RootNamespace>Lektion03.HullSpeed.OnlyGrid</RootNamespace>
+    <AssemblyName>Lektion03.HullSpeed.OnlyGrid</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>

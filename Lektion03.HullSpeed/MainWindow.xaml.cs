@@ -24,5 +24,19 @@ namespace Lektion03.HullSpeed
         {
             InitializeComponent();
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            var name = Name.Text;
+            var length = double.Parse(Length.Text);
+
+            var boat = new Sailboat();
+            boat.Name = name;
+            boat.Length = length;
+
+            AnswerBlock.Text = $"{(Math.Round(2 * boat.Hullspeed(), MidpointRounding.AwayFromZero) / 2),6:0.0}";
+
+            BoatList.Items.Add($"{boat.Name,-5}\t{boat.Length,-5}");
+        }
     }
 }

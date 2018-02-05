@@ -6,7 +6,27 @@
         xmlns:local="clr-namespace:Lektion03.HullSpeed"
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525">
-    <Grid>
-        
-    </Grid>
+    <DockPanel>
+        <StackPanel DockPanel.Dock="Left">
+            <WrapPanel>
+                <TextBlock Margin="3" Width="40">Name:</TextBlock>
+                <TextBox Margin="3" Name="Name" Width="150" BorderThickness="1">Input name</TextBox>
+            </WrapPanel>
+            <WrapPanel>
+                <TextBlock Margin="3" Width="40">Length:</TextBlock>
+                <TextBox Margin="3" Name="Length" Width="40" BorderThickness="1"></TextBox>
+                <TextBlock Margin="3">feet</TextBlock>
+            </WrapPanel>
+            <Button Margin="3" Width="Auto" Click="Button_Click">Calculate Hull Speed</Button>
+            <WrapPanel>
+                <TextBlock Margin="3" >Hull Speed:</TextBlock>
+                <TextBlock Margin="3" Width="40" Name="AnswerBlock"></TextBlock>
+                <TextBlock Margin="3">knots</TextBlock>
+            </WrapPanel>
+            <Expander Header="Recent boats..." BorderThickness="1">
+                <ListBox Name="BoatList" MaxHeight="100"></ListBox>
+            </Expander>
+        </StackPanel>
+        <Image DockPanel.Dock="Right" Source="03-Sailboat.jpg" Stretch="Fill"/>
+    </DockPanel>
 </Window>
