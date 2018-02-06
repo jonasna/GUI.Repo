@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lektion03.HullSpeed", "Lekt
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lektion03.HullSpeed.OnlyGrid", "Lektion03.HullSpeed.OnlyGrid\Lektion03.HullSpeed.OnlyGrid.csproj", "{63397A07-56AB-4820-A787-D2297705B65E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lektion04.HullSpeed.KeyBoardEvent", "Lektion04.HullSpeed.KeyBoardEvent\Lektion04.HullSpeed.KeyBoardEvent.csproj", "{BB8D6185-BD3D-452E-900A-23F298E74C29}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{63397A07-56AB-4820-A787-D2297705B65E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{63397A07-56AB-4820-A787-D2297705B65E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{63397A07-56AB-4820-A787-D2297705B65E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BB8D6185-BD3D-452E-900A-23F298E74C29}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BB8D6185-BD3D-452E-900A-23F298E74C29}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BB8D6185-BD3D-452E-900A-23F298E74C29}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BB8D6185-BD3D-452E-900A-23F298E74C29}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
