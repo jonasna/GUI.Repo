@@ -35,7 +35,7 @@ namespace Lektion04.HullSpeed.KeyBoardEvent
             {
                 if (Keyboard.IsKeyDown(Key.S))
                 {
-                    Name.FontSize -= 2;
+                    NameInput.FontSize -= 2;
                     NameLabel.FontSize -= 2;
                     CalcButton.FontSize -= 2;
                     Wrap11.FontSize -= 2;
@@ -56,7 +56,7 @@ namespace Lektion04.HullSpeed.KeyBoardEvent
             {
                 if (Keyboard.IsKeyDown(Key.L))
                 {
-                    Name.FontSize += 2;
+                    NameInput.FontSize += 2;
                     NameLabel.FontSize += 2;
                     CalcButton.FontSize += 2;
                     Wrap11.FontSize += 2;
@@ -73,7 +73,7 @@ namespace Lektion04.HullSpeed.KeyBoardEvent
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            _sailboat.Name = Name.Text;
+            _sailboat.Name = NameInput.Text;
             _sailboat.Length = double.Parse(Length.Text);
 
             AnswerBlock.Text = $"{(Math.Round(2 * _sailboat.Hullspeed(), MidpointRounding.AwayFromZero) / 2),6:0.0}";

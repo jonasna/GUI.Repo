@@ -6,11 +6,11 @@
         xmlns:local="clr-namespace:Lektion04.HullSpeed.KeyBoardEvent"
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525">
-    <DockPanel Name="DockyPanel">
+    <DockPanel>
         <StackPanel DockPanel.Dock="Left">
             <WrapPanel>
                 <TextBlock Margin="3" Name="NameLabel">Name:</TextBlock>
-                <TextBox Margin="3" Width="125" Name="Name" BorderThickness="1">Input name here</TextBox>
+                <TextBox Margin="3" Width="125" Name="NameInput" BorderThickness="1">Input name here</TextBox>
             </WrapPanel>
             <WrapPanel>
                 <TextBlock Name="Wrap11" Margin="3">Length:</TextBlock>
