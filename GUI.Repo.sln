@@ -1,13 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27130.2024
+VisualStudioVersion = 15.0.27130.2027
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lektion03.HullSpeed", "Lektion03.HullSpeed\Lektion03.HullSpeed.csproj", "{B4BD2A72-6CEF-4132-B838-598A8D4B71A4}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lektion03.HullSpeed.OnlyGrid", "Lektion03.HullSpeed.OnlyGrid\Lektion03.HullSpeed.OnlyGrid.csproj", "{63397A07-56AB-4820-A787-D2297705B65E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lektion04.HullSpeed.KeyBoardEvent", "Lektion04.HullSpeed.KeyBoardEvent\Lektion04.HullSpeed.KeyBoardEvent.csproj", "{BB8D6185-BD3D-452E-900A-23F298E74C29}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lektion05.Babynames", "Lektion05.Babynames\Lektion05.Babynames.csproj", "{D51366AE-06F1-48C1-A479-B4F3D9722167}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{BB8D6185-BD3D-452E-900A-23F298E74C29}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BB8D6185-BD3D-452E-900A-23F298E74C29}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BB8D6185-BD3D-452E-900A-23F298E74C29}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D51366AE-06F1-48C1-A479-B4F3D9722167}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D51366AE-06F1-48C1-A479-B4F3D9722167}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D51366AE-06F1-48C1-A479-B4F3D9722167}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D51366AE-06F1-48C1-A479-B4F3D9722167}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
