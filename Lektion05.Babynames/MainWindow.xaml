@@ -5,28 +5,103 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Lektion05.Babynames"
         mc:Ignorable="d"
-        Title="MainWindow" Height="300" Width="450">
-    <Grid>
+        Title="MainWindow" Height="400" Width="460">
+    <Grid Margin="3">
         <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
             <ColumnDefinition/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition/>
-            <RowDefinition/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition />
         </Grid.RowDefinitions>
-        <ListBox
-            Name="LstDecades"
+
+        <StackPanel 
             Grid.Column="0"
-            Grid.Row="0"
-            Padding="3"
-            SelectionChanged="LstDecades_SelectionChanged"
+            Grid.Row="0">
+            <Label Margin="3">Decades</Label>
+            <ListBox
+                Name="LstDecades"
+                Margin="3"
+                SelectionChanged="LstDecades_SelectionChanged"
+                MaxHeight="150"
+                Width="Auto"
+                HorizontalAlignment="Center"
             />
-        <ListBox 
-            Name="LstDecadeTopNames"
+        </StackPanel>
+
+        <StackPanel 
             Grid.Column="1"
             Grid.Row="0"
-            Padding="3" 
+            Grid.ColumnSpan="2">
+            <Label Margin="3">Top 10 baby names in selected decade</Label>
+            <ListBox 
+                Name="LstDecadeTopNames"
+                Margin="3"
+                Height="150"
             />
+        </StackPanel>
+
+        <GroupBox
+            Header="Search"
+            Margin="3"
+            Grid.Column="0"
+            Grid.Row="1"
+            Grid.ColumnSpan="3">
+
+            <Grid Margin="3">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <Label
+                   Grid.Column="0"
+                   Grid.Row="1"
+                   HorizontalAlignment="Center">
+                    Name
+                </Label>
+
+                <StackPanel
+                        Grid.Column="1"
+                        Grid.Row="1"
+                        HorizontalAlignment="Stretch" 
+                        VerticalAlignment="Top" Height="102">
+
+                    <TextBox Name="NameSearchInputText" Margin="3">Input name...</TextBox>
+                    <Button Margin="3" Click="Button_Click">Search</Button>
+
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+
+                        <Label Target="{Binding ElementName=AvgRankingText}">_Average ranking:</Label>
+                        <TextBox x:Name="AvgRankingText" Margin="3" Grid.Column="1" Grid.Row="0" MinWidth="30" HorizontalAlignment="Left"></TextBox>
+                        <TextBox x:Name="TrendText" Margin="3" Grid.Column="1" Grid.Row="1" TextAlignment="Left"></TextBox>
+                        <Label Target="{Binding ElementName=TrendText}" Grid.Column="0" Grid.Row="1">_Trend:</Label>
+                    </Grid>
+
+                </StackPanel>
+                <StackPanel Grid.Row="0" Grid.Column="2" Margin="3" Orientation="Horizontal">
+                    <Label>Year</Label>
+                    <Label>Rank</Label>
+                </StackPanel>
+
+                <ListBox Name="SearchTargetRankingListBox" Margin="3" Grid.Column="2" Grid.Row="1" MaxHeight="97" ScrollViewer.VerticalScrollBarVisibility="Visible"/>
+
+            </Grid>
+        </GroupBox>
     </Grid>
 </Window>

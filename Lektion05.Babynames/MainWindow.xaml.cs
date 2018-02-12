@@ -25,9 +25,9 @@ namespace Lektion05.Babynames
     public partial class MainWindow : Window
     {
         private readonly ObservableCollection<string> _listDecadeTopNamesItems = new ObservableCollection<string>();
-        private readonly ObservableCollection<string> _listDecadeItems = new ObservableCollection<string>();
         private readonly List<Babyname> _babynames = new List<Babyname>();
-        private readonly string[,] _topDecadeBabyNames = new string[11,10];
+        private readonly List<Babyname>[] _topTenBabyNamesDecade = new List<Babyname>[11];
+        private Babyname _searchTarget = null;
         
         public MainWindow()
         {
@@ -39,10 +39,9 @@ namespace Lektion05.Babynames
         
         private void LoadDecades(object sender, RoutedEventArgs e)
         {
-            LstDecades.ItemsSource = _listDecadeItems;
             for (int i = 0; i < 11; i++)
             {
-                _listDecadeItems.Add(((1900 + i * 10)).ToString());
+                LstDecades.Items.Add(((1900 + i * 10)).ToString());
             }
         }
 
@@ -66,43 +65,59 @@ namespace Lektion05.Babynames
             }
             finally
             {
-                sr.Close();
-                fs.Close();
+                sr?.Close();
+                fs?.Close();
             }
 
-            foreach (var name in _babynames)
+            LoadTop10NamesForEachDecade();
+        }
+
+        private void LoadTop10NamesForEachDecade()
+        {
+            for (int i = 0; i < 11; i++)
             {
-                for (int i = 0; i < 11; i++)
-                {
-                    if (name.Rank(1900 + i * 10) > 0 && name.Rank(1900 + i * 10) <= 10)
-                    {
-                        if (_topDecadeBabyNames[i, name.Rank(1900 + i * 10) - 1] == null)
-                            _topDecadeBabyNames[i, name.Rank(1900 + i * 10) - 1] = name.Name;
-                        else
-                            _topDecadeBabyNames[i, name.Rank(1900 + i * 10) - 1] += " and " + name.Name;
-                    }
-                }
+                _topTenBabyNamesDecade[i] = _babynames.
+                    Where(name => (name.Rank(1900 + 10 * i) > 0 && name.Rank(1900 + 10 * i) <= 10)).
+                    OrderBy(name => name.Rank(1900 + 10 * i)).
+                    ToList();
             }
         }
 
         private void LstDecades_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             _listDecadeTopNamesItems.Clear();
-            IList decades = e.AddedItems;
-            string decade = (string)decades[0];
-            int index = int.Parse(decade);
 
-            if (index == 2000)
-                index = 10;
-            else
+            var list = (ListBox) e.Source;
+            var index = list.SelectedIndex;
+
+            for (int i = 0; i < 20; i += 2)
             {
-                index = (index / 10) % 10;
-            }
-                
-            for (int i = 0; i < 10; i++)
-            {
-                _listDecadeTopNamesItems.Add(_topDecadeBabyNames[index, i]);
+                _listDecadeTopNamesItems.Add($"{i/2 + 1} {_topTenBabyNamesDecade[index][i].Name} and {_topTenBabyNamesDecade[index][i+1].Name}");
             }
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                SearchTargetRankingListBox.Items.Clear();
+                _searchTarget = _babynames.Find(name => (name.Name == NameSearchInputText.Text));
+                AvgRankingText.Text = _searchTarget.AverageRank().ToString();
+                TrendText.Text = _searchTarget.Trend() > 0 ? "More popular" : "Less popular";
+
+                for (int i = 0; i < 11; i++)
+                {
+                    var decade = (1900 + 10 * i).ToString() + "   ";
+                    decade += _searchTarget.Rank(1900 + 10 * i).ToString();
+                    SearchTargetRankingListBox.Items.Add(decade);
+                }
+
+            }
+            catch (Exception)
+            {
+                NameSearchInputText.Text = "Name not found";
+            }
+        }
+
     }
 }
