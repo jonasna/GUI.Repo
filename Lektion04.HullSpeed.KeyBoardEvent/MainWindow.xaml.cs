@@ -74,7 +74,6 @@ namespace Lektion04.HullSpeed.KeyBoardEvent
                 _sailboat.Length = double.Parse(Length.Text);
 
                 AnswerBlock.Text = $"{(Math.Round(2 * _sailboat.Hullspeed(), MidpointRounding.AwayFromZero) / 2),6:0.0}";
-
                 BoatList.Items.Add($"{_sailboat.Name,-5}\t{_sailboat.Length,-5}");
             }
             catch {}
