@@ -5,12 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Lektion04.HullSpeed.KeyBoardEvent"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
+        Title="MainWindow" Height="350" Width="525" Name="SwagWindow">
     <DockPanel>
         <StackPanel DockPanel.Dock="Left">
             <WrapPanel>
                 <TextBlock Margin="3" Name="NameLabel">Name:</TextBlock>
-                <TextBox Margin="3" Width="125" Name="NameInput" BorderThickness="1">Input name here</TextBox>
+                <TextBox Margin="3" MinWidth="100" Name="NameInput" BorderThickness="1">Input name here</TextBox>
             </WrapPanel>
             <WrapPanel>
                 <TextBlock Name="Wrap11" Margin="3">Length:</TextBlock>
@@ -20,7 +20,7 @@
             <Button Margin="3" Padding="3" Click="Button_Click" Name="CalcButton">Calculate Hull Speed</Button>
             <WrapPanel>
                 <TextBlock Name="Wrap21" Margin="3" >Hull Speed:</TextBlock>
-                <TextBlock Margin="3" Width="40" Name="AnswerBlock"></TextBlock>
+                <TextBlock Margin="3" MinWidth="40" Name="AnswerBlock"></TextBlock>
                 <TextBlock Name="Wrap22" Margin="3">knots</TextBlock>
             </WrapPanel>
             <Expander Name="BoatExpander" Header="Recent boats..." BorderThickness="1">

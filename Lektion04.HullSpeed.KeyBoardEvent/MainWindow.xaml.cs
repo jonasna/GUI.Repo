@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -35,17 +36,14 @@ namespace Lektion04.HullSpeed.KeyBoardEvent
             {
                 if (Keyboard.IsKeyDown(Key.S))
                 {
-                    NameInput.FontSize -= 2;
-                    NameLabel.FontSize -= 2;
-                    CalcButton.FontSize -= 2;
-                    Wrap11.FontSize -= 2;
-                    Length.FontSize -= 2;
-                    Wrap13.FontSize -= 2;
-                    Wrap21.FontSize -= 2;
-                    AnswerBlock.FontSize -= 2;
-                    Wrap22.FontSize -= 2;
-                    BoatExpander.FontSize -= 2;
-                    BoatList.FontSize -= 2;
+                    try
+                    {
+                        this.FontSize -= 2;
+                        Debug.WriteLine("MORE");
+                    }
+                    catch
+                    {
+                    }
                 }
             }
         }
@@ -56,29 +54,30 @@ namespace Lektion04.HullSpeed.KeyBoardEvent
             {
                 if (Keyboard.IsKeyDown(Key.L))
                 {
-                    NameInput.FontSize += 2;
-                    NameLabel.FontSize += 2;
-                    CalcButton.FontSize += 2;
-                    Wrap11.FontSize += 2;
-                    Length.FontSize += 2;
-                    Wrap13.FontSize += 2;
-                    Wrap21.FontSize += 2;
-                    AnswerBlock.FontSize += 2;
-                    Wrap22.FontSize += 2;
-                    BoatExpander.FontSize += 2;
-                    BoatList.FontSize += 2;
+                    try
+                    {
+                        this.FontSize += 2;
+                        Debug.WriteLine("MORE");
+                    }
+                    catch
+                    {
+                    }
                 }
             }
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            _sailboat.Name = NameInput.Text;
-            _sailboat.Length = double.Parse(Length.Text);
+            try
+            {
+                _sailboat.Name = NameInput.Text;
+                _sailboat.Length = double.Parse(Length.Text);
 
-            AnswerBlock.Text = $"{(Math.Round(2 * _sailboat.Hullspeed(), MidpointRounding.AwayFromZero) / 2),6:0.0}";
+                AnswerBlock.Text = $"{(Math.Round(2 * _sailboat.Hullspeed(), MidpointRounding.AwayFromZero) / 2),6:0.0}";
 
-            BoatList.Items.Add($"{_sailboat.Name,-5}\t{_sailboat.Length,-5}");
+                BoatList.Items.Add($"{_sailboat.Name,-5}\t{_sailboat.Length,-5}");
+            }
+            catch {}
         }
 
         private void UIElement_OnMouseEnter(object sender, MouseEventArgs e)
