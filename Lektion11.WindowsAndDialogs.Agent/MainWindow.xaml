@@ -5,92 +5,26 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Lektion11.WindowsAndDialogs.Agent"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
-       
+        Title="MainWindow" Height="385" Width="525">
+
     <Window.Resources>
-        
+
         <Style x:Key="ButtonStyle" TargetType="{x:Type Button}">
-            <Setter Property="FontSize" Value="19"/>
+            <Setter Property="Template" Value="{StaticResource BtnTemplate}"/>
             <Setter Property="Margin" Value="2"/>
             <Setter Property="FontWeight" Value="Bold"/>
-            <Setter Property="Foreground" Value="Blue"/>
             <Setter Property="Padding" Value="0,-3,0,0"/>
-
-
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="Button">
-                        <Border Name="border" 
-        				BorderThickness="1"
-        				Padding="4,2" 
-        				BorderBrush="DarkGray" 
-        				CornerRadius="3" 
-        				Background="{TemplateBinding Background}">
-                            <Grid >
-                                <ContentPresenter HorizontalAlignment="Center" 
-        	                           VerticalAlignment="Center" Name="contentShadow" 
-        					>
-                                    <ContentPresenter.RenderTransform>
-                                        <TranslateTransform X="1.0" Y="1.0" />
-                                    </ContentPresenter.RenderTransform>
-                                </ContentPresenter>
-                                <ContentPresenter HorizontalAlignment="Center" 
-                                    VerticalAlignment="Center" Name="content"/>
-                            </Grid>
-                        </Border>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter TargetName="border" Property="BorderBrush" Value="Red" />
-                                <Setter Property="Foreground" Value="#FF4788c8" />
-                                <Setter Property="Background" Value="BlueViolet"></Setter>
-                            </Trigger>
-                            <Trigger Property="IsPressed" Value="True">
-                                <Setter Property="Background" >
-                                    <Setter.Value>
-                                        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1" >
-                                            <GradientStop Color="#FFFFD190" Offset="0.35"/>
-                                            <GradientStop Color="Orange" Offset="0.95"/>
-                                            <GradientStop Color="#FFFFD190" Offset="1"/>
-                                        </LinearGradientBrush>
-                                    </Setter.Value>
-                                </Setter>
-                                <Setter TargetName="content" Property="RenderTransform" >
-                                    <Setter.Value>
-                                        <TranslateTransform Y="1.0" />
-                                    </Setter.Value>
-                                </Setter>
-                            </Trigger>
-                            <Trigger Property="IsDefaulted" Value="True">
-                                <Setter TargetName="border" Property="BorderBrush" Value="#FF282828" />
-                            </Trigger>
-                            <Trigger Property="IsFocused" Value="True">
-                                <Setter TargetName="border" Property="BorderBrush" Value="Red" />
-                            </Trigger>
-                            <Trigger Property="IsEnabled" Value="False">
-                                <Setter TargetName="border" Property="Opacity" Value="0.7" />
-                                <Setter Property="Foreground" Value="Gray" />
-                            </Trigger>
-
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-            <Style.Resources>
-                <Style TargetType="{x:Type Border}">
-                    <Setter Property="CornerRadius" Value="3"></Setter>
-                </Style>
-            </Style.Resources>
+            <Setter Property="Background" Value="Chartreuse"></Setter>
         </Style>
-        
+
         <Style x:Key="SpecialBtnStyle" TargetType="{x:Type Button}" BasedOn="{StaticResource ButtonStyle}">
             <Style.Triggers>
-                <DataTrigger Binding="{Binding ElementName=AgentsDataGrid, Path=Items.Count}" Value="0">
-                    <Setter Property="Focusable" Value="False"></Setter>
+                <DataTrigger Binding="{Binding CurrentIndex}" Value="-1">
                     <Setter Property="IsEnabled" Value="False"></Setter>
                 </DataTrigger>
             </Style.Triggers>
         </Style>
-        
+
         <Style x:Key="GeneralLabelStyle" TargetType="{x:Type Label}">
             <Setter Property="HorizontalAlignment" Value="Left"/>
             <Setter Property="Padding" Value="0,0,0,3"></Setter>
@@ -102,7 +36,9 @@
         <Style TargetType="{x:Type TextBox}">
             <Setter Property="FontWeight" Value="Bold"/>
             <Setter Property="Margin" Value="3"/>
-            <Setter Property="IsReadOnly" Value="True"></Setter>
+            <Setter Property="IsReadOnly" Value="True"/>
+            <Setter Property="MaxWidth" Value="110"></Setter>
+            <Setter Property="MinWidth" Value="110"></Setter>
             <Style.Resources>
                 <Style TargetType="{x:Type Border}">
                     <Setter Property="CornerRadius" Value="3"></Setter>
@@ -140,11 +76,12 @@
             </DockPanel>
         </StatusBar>
 
-        <Grid DockPanel.Dock="Left" Margin="3">
+        <Grid Margin="3" Background="LightSalmon">
 
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition MinWidth="150"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
             <Grid.RowDefinitions>
@@ -152,42 +89,54 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
-                <RowDefinition Height="0.2*"/>
-                <RowDefinition Height="0.2*"/>
-                <RowDefinition Height="0.2*"/>
-                <RowDefinition Height="0.2*"/>
-                <RowDefinition Height="0.2*"/>
+                <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
             <Label Grid.Column="0" Grid.Row="0" Style="{StaticResource GeneralLabelStyle}">Id</Label>
             <Label Grid.Column="0" Grid.Row="1" Style="{StaticResource GeneralLabelStyle}">Code name</Label>
             <Label Grid.Column="0" Grid.Row="2" Style="{StaticResource GeneralLabelStyle}">Speciality</Label>
-            <Label Grid.Column="0" Grid.Row="3" Style="{StaticResource GeneralLabelStyle}">Assignment</Label>
 
-            <Button Style="{StaticResource ButtonStyle}" Grid.Column="0" Grid.Row="4" Command="{Binding PreviousAgentCommand}">&lt;</Button>
-            <Button Style="{StaticResource ButtonStyle}" Grid.Column="0" Grid.Row="5" Command="{Binding NextAgentCommand}">&gt;</Button>
-            <Button Style="{StaticResource SpecialBtnStyle}" Grid.Column="0" Grid.Row="6" Click="Button_Click">Edit</Button>
-            <Button Style="{StaticResource ButtonStyle}" Grid.Column="0" Grid.Row="7" Command="{Binding CreateNewAgentCommand}">Add</Button>
-            <Button Style="{StaticResource ButtonStyle}" Grid.Column="0" Grid.Row="8" Command="{Binding DeleteAgentCommand}">Delete</Button>
+            <StackPanel Grid.Row="3" Grid.Column="0">
+                <Label Style="{StaticResource GeneralLabelStyle}">Assignment</Label>
+                <Button Style="{StaticResource ButtonStyle}" Command="{Binding PreviousAgentCommand}">&lt;</Button>
+                <Button Style="{StaticResource ButtonStyle}" Command="{Binding NextAgentCommand}">&gt;</Button>
+                <Button Name="EditBtn" Style="{StaticResource SpecialBtnStyle}" Click="EditBtn_Click">Edit</Button>
+                <Button Name="AddBtn" Style="{StaticResource ButtonStyle}" Click="AddBtn_Click">Add</Button>
+                <Button Name="DelBtn" Style="{StaticResource SpecialBtnStyle}" Click="DeleteBtn_Click">Delete</Button>
+            </StackPanel>
 
             <TextBox Name="IdTxtBox" Grid.Column="1" Grid.Row="0" Text="{Binding ID}"></TextBox>
             <TextBox Name="CodenameTxtBox" Grid.Column="1" Grid.Row="1" Text="{Binding CodeName}"></TextBox>
             <TextBox Name="SpecialityTxtBox" Grid.Column="1" Grid.Row="2" Text="{Binding Speciality}"></TextBox>
-            <TextBox Name="AssignTxtBox" Grid.Column="1" Grid.Row="3" Text="{Binding Assignment}" Grid.RowSpan="6" AcceptsReturn="True" AcceptsTab="True"></TextBox>
+            <TextBox Name="AssignTxtBox"  TextWrapping="Wrap" Grid.Column="1" Grid.Row="3" Text="{Binding Assignment}" Grid.RowSpan="2" AcceptsReturn="True" AcceptsTab="True"></TextBox>
+            
+            <Grid Grid.Row="0" Grid.Column="2" Grid.RowSpan="5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <DataGrid ItemsSource="{Binding}"
+                          Margin="3"
+                          AutoGenerateColumns="True"
+                          IsReadOnly="True"
+                          IsSynchronizedWithCurrentItem="True"
+                          SelectedIndex="{Binding CurrentIndex}"
+                          Name="AgentsDataGrid"
+
+                          CanUserResizeColumns="False" GridLinesVisibility="Horizontal" CanUserResizeRows="False" SelectionMode="Single"
+                          HorizontalContentAlignment="Stretch">
+                    <DataGrid.Resources>
+                        <Style TargetType="{x:Type Border}">
+                            <Setter Property="CornerRadius" Value="3"></Setter>
+                        </Style>
+                    </DataGrid.Resources>
+                </DataGrid>
+            </Grid>
 
         </Grid>
-
-        <Grid Margin="3">
-            <DataGrid ItemsSource="{Binding}"
-                      Margin="3"
-                      AutoGenerateColumns="True"
-                      IsReadOnly="True"
-                      IsSynchronizedWithCurrentItem="True"
-                      SelectedIndex="{Binding CurrentIndex}"
-                      Name="AgentsDataGrid"
-                      >
-            </DataGrid>
-        </Grid>
-
     </DockPanel>
 </Window>

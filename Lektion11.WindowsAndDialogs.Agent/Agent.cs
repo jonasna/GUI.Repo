@@ -17,7 +17,7 @@ namespace Lektion11.WindowsAndDialogs.Agent
             
         }
 
-        public Agent(string aId, string aName, string aAddress, string aSpeciality, string aAssignment)
+        public Agent(string aId, string aName, string aSpeciality, string aAssignment)
         {
             id = aId;
             codeName = aName;

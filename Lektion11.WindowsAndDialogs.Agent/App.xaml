@@ -4,6 +4,40 @@
              xmlns:local="clr-namespace:Lektion11.WindowsAndDialogs.Agent"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+
+        <ControlTemplate x:Key="BtnTemplate" TargetType="Button">
+            <Border Name="border" 
+        				BorderThickness="2"
+        				Padding="4,2" 
+        				BorderBrush="DarkGray" 
+        				CornerRadius="6" 
+        				Background="{TemplateBinding Background}">
+                <Grid>
+                    <TextBlock HorizontalAlignment="Center" FontSize="18" Padding="0,-5,0,0" FontFamily="Comic Sans MS" Foreground="Brown">
+                        <ContentPresenter/>
+                    </TextBlock>
+                </Grid>
+            </Border>
+            <ControlTemplate.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter TargetName="border" Property="BorderBrush" Value="DarkCyan" />
+                    <Setter Property="Background" Value="Coral"></Setter>
+                </Trigger>
+                <Trigger Property="IsPressed" Value="True">
+                    <Setter Property="Background" Value="BurlyWood"/>
+                </Trigger>
+                <Trigger Property="IsDefaulted" Value="True">
+                    <Setter TargetName="border" Property="BorderBrush" Value="#FF282828" />
+                </Trigger>
+                <Trigger Property="IsFocused" Value="True">
+                    <Setter TargetName="border" Property="BorderBrush" Value="Black" />
+                </Trigger>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter TargetName="border" Property="Opacity" Value="0.3" />
+                    <Setter Property="Foreground" Value="Gray" />
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+
     </Application.Resources>
 </Application>

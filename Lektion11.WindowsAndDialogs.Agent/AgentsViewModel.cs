@@ -10,8 +10,8 @@ namespace Lektion11.WindowsAndDialogs.Agent
     {
         public AgentsViewModel()
         {
-            Add(new Agent("25", "Jonas Andersen", "Oddervej 61", "Super smooth", "Has to buy candy"));
-            Add(new Agent("661", "Bella", "Oddervej 61", "Super dejlig", "Skal også hente slik"));
+            Add(new Agent("25", "Jonas Andersen", "Super smooth", "Has to buy candy asdasdasdasdasdasdasdasd"));
+            Add(new Agent("661", "Bella", "Super dejlig", "Skal også hente slik"));
         }
 
         #region Commands
@@ -48,6 +48,23 @@ namespace Lektion11.WindowsAndDialogs.Agent
             (_previousAgentCommand = new RelayCommand(
                 () => CurrentIndex--,
                 () => CurrentIndex > 0));
+
+        #endregion
+
+        #region Functions
+
+        public void ModifySelected(string Id, string codename, string speciality, string assignment)
+        {
+            if (CurrentIndex == -1)
+                return;
+
+            var agent = Items[CurrentIndex];
+
+            Items[CurrentIndex].ID = Id;
+            agent.CodeName = codename;
+            agent.Speciality = speciality;
+            agent.Assignment = assignment;
+        }
 
         #endregion
 

@@ -25,8 +25,10 @@ namespace Lektion11.WindowsAndDialogs.Agent
             InitializeComponent();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void EditBtn_Click(object sender, RoutedEventArgs e)
         {
+            var vmodel = (AgentsViewModel)FindResource("Awm");
+
             AgentEditView view = new AgentEditView();
             view.Owner = this;
 
@@ -37,9 +39,44 @@ namespace Lektion11.WindowsAndDialogs.Agent
 
             if (view.ShowDialog() == true)
             {
-                IdTxtBox.Text = view.Id;
-                Focus();
+                vmodel.ModifySelected(view.Id, view.Codename, view.Speciality, view.Assignment);
+                AgentsDataGrid.Items.Refresh();
+                FocusManager.SetFocusedElement(this, EditBtn);
             }
+        }
+
+        private void AddBtn_Click(object sender, RoutedEventArgs e)
+        {
+            var vmodel = (AgentsViewModel)FindResource("Awm");
+            vmodel.CreateNewAgentCommand.Execute(null);
+
+            var view = new AgentEditView();
+            view.Owner = this;        
+
+            if (view.ShowDialog() == true)
+            {
+                
+                vmodel.ModifySelected(view.Id, view.Codename, view.Speciality, view.Assignment);
+                AgentsDataGrid.Items.Refresh();
+                FocusManager.SetFocusedElement(this, AddBtn);
+            }
+            else
+            {
+                vmodel.DeleteAgentCommand.Execute(null);
+            }
+        }
+
+        private void DeleteBtn_Click(object sender, RoutedEventArgs e)
+        {
+            var vmodel = (AgentsViewModel)FindResource("Awm");
+
+            var result = MessageBox.Show("Are you sure you want to delete the selected item?",
+                "Delete Agent",
+                MessageBoxButton.YesNo,
+                MessageBoxImage.Exclamation);
+
+            if(result == MessageBoxResult.Yes)
+                vmodel.DeleteAgentCommand.Execute(null);
         }
     }
 }
