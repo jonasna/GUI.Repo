@@ -9,17 +9,86 @@
        
     <Window.Resources>
         
-        <Style TargetType="{x:Type Button}">
+        <Style x:Key="ButtonStyle" TargetType="{x:Type Button}">
             <Setter Property="FontSize" Value="19"/>
             <Setter Property="Margin" Value="2"/>
             <Setter Property="FontWeight" Value="Bold"/>
             <Setter Property="Foreground" Value="Blue"/>
             <Setter Property="Padding" Value="0,-3,0,0"/>
+
+
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Name="border" 
+        				BorderThickness="1"
+        				Padding="4,2" 
+        				BorderBrush="DarkGray" 
+        				CornerRadius="3" 
+        				Background="{TemplateBinding Background}">
+                            <Grid >
+                                <ContentPresenter HorizontalAlignment="Center" 
+        	                           VerticalAlignment="Center" Name="contentShadow" 
+        					>
+                                    <ContentPresenter.RenderTransform>
+                                        <TranslateTransform X="1.0" Y="1.0" />
+                                    </ContentPresenter.RenderTransform>
+                                </ContentPresenter>
+                                <ContentPresenter HorizontalAlignment="Center" 
+                                    VerticalAlignment="Center" Name="content"/>
+                            </Grid>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="BorderBrush" Value="Red" />
+                                <Setter Property="Foreground" Value="#FF4788c8" />
+                                <Setter Property="Background" Value="BlueViolet"></Setter>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Background" >
+                                    <Setter.Value>
+                                        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1" >
+                                            <GradientStop Color="#FFFFD190" Offset="0.35"/>
+                                            <GradientStop Color="Orange" Offset="0.95"/>
+                                            <GradientStop Color="#FFFFD190" Offset="1"/>
+                                        </LinearGradientBrush>
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter TargetName="content" Property="RenderTransform" >
+                                    <Setter.Value>
+                                        <TranslateTransform Y="1.0" />
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+                            <Trigger Property="IsDefaulted" Value="True">
+                                <Setter TargetName="border" Property="BorderBrush" Value="#FF282828" />
+                            </Trigger>
+                            <Trigger Property="IsFocused" Value="True">
+                                <Setter TargetName="border" Property="BorderBrush" Value="Red" />
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter TargetName="border" Property="Opacity" Value="0.7" />
+                                <Setter Property="Foreground" Value="Gray" />
+                            </Trigger>
+
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
             <Style.Resources>
                 <Style TargetType="{x:Type Border}">
                     <Setter Property="CornerRadius" Value="3"></Setter>
                 </Style>
             </Style.Resources>
+        </Style>
+        
+        <Style x:Key="SpecialBtnStyle" TargetType="{x:Type Button}" BasedOn="{StaticResource ButtonStyle}">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding ElementName=AgentsDataGrid, Path=Items.Count}" Value="0">
+                    <Setter Property="Focusable" Value="False"></Setter>
+                    <Setter Property="IsEnabled" Value="False"></Setter>
+                </DataTrigger>
+            </Style.Triggers>
         </Style>
         
         <Style x:Key="GeneralLabelStyle" TargetType="{x:Type Label}">
@@ -42,6 +111,7 @@
         </Style>
 
         <local:AgentsViewModel x:Key="Awm"/>
+
     </Window.Resources>
 
     <DockPanel DataContext="{StaticResource Awm}">
@@ -94,21 +164,29 @@
             <Label Grid.Column="0" Grid.Row="2" Style="{StaticResource GeneralLabelStyle}">Speciality</Label>
             <Label Grid.Column="0" Grid.Row="3" Style="{StaticResource GeneralLabelStyle}">Assignment</Label>
 
-            <Button Grid.Column="0" Grid.Row="4">&lt;</Button>
-            <Button Grid.Column="0" Grid.Row="5">&gt;</Button>
-            <Button Grid.Column="0" Grid.Row="6">Edit</Button>
-            <Button Grid.Column="0" Grid.Row="7" Command="{Binding CreateNewAgentCommand}">Add</Button>
-            <Button Grid.Column="0" Grid.Row="8">Delete</Button>
+            <Button Style="{StaticResource ButtonStyle}" Grid.Column="0" Grid.Row="4" Command="{Binding PreviousAgentCommand}">&lt;</Button>
+            <Button Style="{StaticResource ButtonStyle}" Grid.Column="0" Grid.Row="5" Command="{Binding NextAgentCommand}">&gt;</Button>
+            <Button Style="{StaticResource SpecialBtnStyle}" Grid.Column="0" Grid.Row="6" Click="Button_Click">Edit</Button>
+            <Button Style="{StaticResource ButtonStyle}" Grid.Column="0" Grid.Row="7" Command="{Binding CreateNewAgentCommand}">Add</Button>
+            <Button Style="{StaticResource ButtonStyle}" Grid.Column="0" Grid.Row="8" Command="{Binding DeleteAgentCommand}">Delete</Button>
 
-            <TextBox Grid.Column="1" Grid.Row="0" Text="{Binding ID}"></TextBox>
-            <TextBox Grid.Column="1" Grid.Row="1" Text="{Binding CodeName}"></TextBox>
-            <TextBox Grid.Column="1" Grid.Row="2" Text="{Binding Speciality}"></TextBox>
-            <TextBox Grid.Column="1" Grid.Row="3" Text="{Binding Assignment}" Grid.RowSpan="6" AcceptsReturn="True" AcceptsTab="True"></TextBox>
+            <TextBox Name="IdTxtBox" Grid.Column="1" Grid.Row="0" Text="{Binding ID}"></TextBox>
+            <TextBox Name="CodenameTxtBox" Grid.Column="1" Grid.Row="1" Text="{Binding CodeName}"></TextBox>
+            <TextBox Name="SpecialityTxtBox" Grid.Column="1" Grid.Row="2" Text="{Binding Speciality}"></TextBox>
+            <TextBox Name="AssignTxtBox" Grid.Column="1" Grid.Row="3" Text="{Binding Assignment}" Grid.RowSpan="6" AcceptsReturn="True" AcceptsTab="True"></TextBox>
 
         </Grid>
 
         <Grid Margin="3">
-            <DataGrid ItemsSource="{Binding}" Margin="3" AutoGenerateColumns="True" IsReadOnly="True" IsSynchronizedWithCurrentItem="True" SelectedIndex="{Binding CurrentIndex}"></DataGrid>
+            <DataGrid ItemsSource="{Binding}"
+                      Margin="3"
+                      AutoGenerateColumns="True"
+                      IsReadOnly="True"
+                      IsSynchronizedWithCurrentItem="True"
+                      SelectedIndex="{Binding CurrentIndex}"
+                      Name="AgentsDataGrid"
+                      >
+            </DataGrid>
         </Grid>
 
     </DockPanel>

@@ -24,5 +24,22 @@ namespace Lektion11.WindowsAndDialogs.Agent
         {
             InitializeComponent();
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            AgentEditView view = new AgentEditView();
+            view.Owner = this;
+
+            view.Id = IdTxtBox.Text;
+            view.Assignment = AssignTxtBox.Text;
+            view.Codename = CodenameTxtBox.Text;
+            view.Speciality = SpecialityTxtBox.Text;
+
+            if (view.ShowDialog() == true)
+            {
+                IdTxtBox.Text = view.Id;
+                Focus();
+            }
+        }
     }
 }
