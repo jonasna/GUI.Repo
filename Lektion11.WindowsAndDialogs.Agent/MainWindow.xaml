@@ -108,7 +108,7 @@
             <TextBox Name="IdTxtBox" Grid.Column="1" Grid.Row="0" Text="{Binding ID}"></TextBox>
             <TextBox Name="CodenameTxtBox" Grid.Column="1" Grid.Row="1" Text="{Binding CodeName}"></TextBox>
             <TextBox Name="SpecialityTxtBox" Grid.Column="1" Grid.Row="2" Text="{Binding Speciality}"></TextBox>
-            <TextBox Name="AssignTxtBox"  TextWrapping="Wrap" Grid.Column="1" Grid.Row="3" Text="{Binding Assignment}" Grid.RowSpan="2" AcceptsReturn="True" AcceptsTab="True"></TextBox>
+            <TextBox Name="AssignTxtBox"  TextWrapping="Wrap" Grid.Column="1" Grid.Row="3" Text="{Binding Assignment}" Grid.RowSpan="2" AcceptsReturn="True" AcceptsTab="True" VerticalScrollBarVisibility="Auto"></TextBox>
             
             <Grid Grid.Row="0" Grid.Column="2" Grid.RowSpan="5">
                 <Grid.ColumnDefinitions>
